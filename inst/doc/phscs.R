@@ -7,99 +7,99 @@ knitr::opts_chunk$set(
 ## ----setup, echo=FALSE--------------------------------------------------------
 library(phscs)
 
-## ----psgc-example, eval=FALSE-------------------------------------------------
-# # Retrieve PSGC data
-# psgc_data <- get_psgc()
-# 
-# psgc_data |>
-#   head(10) |>
-#   gt::gt() |>
-#   gt::tab_options(table.align = "left")
-
-## ----psgc-levels--------------------------------------------------------------
-psgc_provinces <- get_psgc(level = "provinces")
-psgc_regions <- get_psgc(level = "regions")
-
-psgc_regions |> 
-  head(10) |> 
-  gt::gt() |> 
+## ----common-cols--------------------------------------------------------------
+get_psic(level = "sections", cols = "description") |>
+  head(5) |>
+  gt::gt() |>
   gt::tab_options(table.align = "left")
 
-## ----psgc-filter--------------------------------------------------------------
-# Retrieve PSGC data for areas in region 10
-psgc_region_10 <- get_psgc(grepl("^10", area_code))
+## ----psgc-regions-------------------------------------------------------------
+psgc_regions <- get_psgc(geographic_level = "region")
 
-psgc_region_10 |> 
-  head(10) |> 
-  gt::gt() |> 
+psgc_regions |>
+  gt::gt() |>
   gt::tab_options(table.align = "left")
 
-## ----psgc-cols----------------------------------------------------------------
-# Retrieve full PSGC data
-psgc_full_data <- get_psgc(minimal = FALSE)
-
-# Retrieve PSGC data with additional columns
-psgc_data_with_cols <- get_psgc(
-  cols = c(
-    "area_code", 
-    "area_name", 
-    "region_code", 
-    "province_code"
-  )
-)
-
-psgc_data_with_cols |> 
-  head(10) |> 
-  gt::gt() |> 
+## ----psgc-shorten-------------------------------------------------------------
+psgc_regions |>
+  shorten_region_name(which = "label") |>
+  head(5) |>
+  gt::gt() |>
   gt::tab_options(table.align = "left")
 
-## ----psic-example-------------------------------------------------------------
-# Retrieve PSIC data
-psic_data <- get_psic()
+## ----psgc-filter, eval=FALSE--------------------------------------------------
+# # All areas whose PSGC code starts with "10" (Region X)
+# psgc_all <- get_psgc()
+# psgc_region_10 <- psgc_all[grepl("^10", psgc_all$psgc_code), ]
 
-# Retrieve PSIC data for specific levels
-psic_sections <- get_psic(level = "sections")
-
-psic_sections |> 
-  head(10) |> 
-  gt::gt() |> 
+## ----psic-default-------------------------------------------------------------
+get_psic() |>
+  head(10) |>
+  gt::gt() |>
   gt::tab_options(table.align = "left")
 
-## ----psoc-example-------------------------------------------------------------
-# Retrieve PSOC data
-psoc_data <- get_psoc()
-
-# Retrieve PSOC data for specific levels
-psoc_major <- get_psoc(level = "major")
-
-psoc_major |> 
-  head(10) |> 
-  gt::gt() |> 
+## ----psic-sections------------------------------------------------------------
+get_psic(level = "sections") |>
+  gt::gt() |>
   gt::tab_options(table.align = "left")
 
-## ----pscc-example-------------------------------------------------------------
-# Retrieve PSCED data
-psced_data <- get_psced()
-psced_data |> 
-  head(10) |> 
-  gt::gt() |> 
+## ----psoc-default-------------------------------------------------------------
+get_psoc() |>
+  head(10) |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
+
+## ----psoc-major---------------------------------------------------------------
+get_psoc(level = "major") |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
+
+## ----psced-default------------------------------------------------------------
+get_psced() |>
+  head(10) |>
+  gt::gt() |>
   gt::tab_options(table.align = "left")
 
 ## ----psced-levels-------------------------------------------------------------
-# Retrieve PSCED data for specific levels
-psced_broadfield <- get_psced(level = "broadfield")
-
-psced_broadfield |> 
-  head(10) |> 
-  gt::gt() |> 
+get_psced(level = "levels") |>
+  gt::gt() |>
   gt::tab_options(table.align = "left")
 
-## ----pcoicop-example----------------------------------------------------------
-# Retrieve PCOICOP data
-pcoicop_data <- get_pcoicop()
-pcoicop_data |>
-  head(10) |> 
-  gt::gt() |> 
+## ----pcoicop-default----------------------------------------------------------
+get_pcoicop() |>
+  head(10) |>
+  gt::gt() |>
   gt::tab_options(table.align = "left")
 
+## ----pcoicop-divisions--------------------------------------------------------
+get_pcoicop(level = "divisions") |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
+
+## ----pcoicop-2009-------------------------------------------------------------
+get_pcoicop(version = "2009", level = "divisions") |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
+
+## ----pcpc-default-------------------------------------------------------------
+get_pcpc() |>
+  head(10) |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
+
+## ----pcpc-sections------------------------------------------------------------
+get_pcpc(level = "sections") |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
+
+## ----psccs-default------------------------------------------------------------
+get_psccs() |>
+  head(10) |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
+
+## ----psccs-section------------------------------------------------------------
+get_psccs(level = "section") |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
 
