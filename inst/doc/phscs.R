@@ -103,3 +103,13 @@ get_psccs(level = "section") |>
   gt::gt() |>
   gt::tab_options(table.align = "left")
 
+## ----ptscs-industries---------------------------------------------------------
+get_ptscs()[, c("category_id", "description")] |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
+
+## ----ptscs-products-----------------------------------------------------------
+get_ptscs(type = "products")[, c("category_id", "description")] |>
+  gt::gt() |>
+  gt::tab_options(table.align = "left")
+
